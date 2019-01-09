@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 var connection = mysql.createConnection({
     host     : 'localhost',
-    database : 'test',
+    database : 'qbotdb',
     user     : 'ivan',
     password : 'password',
     multipleStatements: true
