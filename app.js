@@ -1,11 +1,26 @@
+var rekuire = require('rekuire');
 var express = require('express');
-var app = express();
+var app     = express();
 
-//static files
-//app.use(express.static('./public'));
+require('dotenv').config();
 
-app.use('/login', require('./routes/login'));
-//app.use('/login', require('./routes/items'));
+var TimeHackHaloHaloMySQL = rekuire('TimeHackHaloHaloMySQL');
 
-app.listen(3000);
-console.log('you are listening to port 3000...');
+app.use('/timehack/halohalo', require('./routes/timeHackHaloHalo'));
+
+if(process.env.SKIP_TIMEHACK_HALOHALO_MYSQL != 'true') {
+  console.log('[TimeHackHaloHaloMySQLDB] Connecting to database');
+  let mysqlConnect = TimeHackHaloHaloMySQL.connect();
+  mysqlConnect.then((connect)=>{
+    console.log('[TimeHackHaloHaloMySQLDB] Database connected', connect);
+  }).catch((error) => {
+    console.log('[TimeHackHaloHaloMySQLDB] Database error in connection', error);
+  });  
+}
+
+let port = process.env.PORT || 8080;
+app.listen(port, function () {
+	console.log('[App] Now up and running', {port: port});
+});
+
+module.exports = app;

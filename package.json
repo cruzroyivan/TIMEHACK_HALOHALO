@@ -17,7 +17,12 @@
   },
   "homepage": "https://github.com/cruzroyivan/TIMEHACK_HALOHALO#readme",
   "dependencies": {
+    "async": "^2.6.1",
+    "connection-pool": "0.0.4",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
-    "mysql": "^2.16.0"
+    "mysql": "^2.16.0",
+    "password-generator": "^2.2.0",
+    "rekuire": "^0.1.9"
   }
 }
