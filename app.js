@@ -1,10 +1,25 @@
 var rekuire = require('rekuire');
 var express = require('express');
-var app     = express();
+var bodyParser = require('body-parser');
+var app  = express();
 
 require('dotenv').config();
 
 var TimeHackHaloHaloMySQL = rekuire('TimeHackHaloHaloMySQL');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(function(req, res, next) {
+  res.ok = function(body) {
+    res.status(200);
+    res.json(body);
+  }
+  res.error = function(error) {
+    res.status(400);
+    res.json(error);
+  }
+  next();
+});
 
 app.use('/timehack/halohalo', require('./routes/timeHackHaloHalo'));
 
